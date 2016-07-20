@@ -1,0 +1,51 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    
+     <item android:id="@+id/searchMenuBtn"
+      	android:icon="@android:drawable/ic_menu_search"     
+        android:title="@string/search" />
+     
+      <item android:id="@+id/directionsMenuBtn"
+      	android:icon="@android:drawable/ic_menu_directions"     
+        android:title="@string/directions" />
+     
+     <item android:id="@+id/mapModeMenuBtn"
+	      android:icon="@android:drawable/ic_menu_mapmode"
+	      android:title="@string/mapMode">
+	    <menu>
+	      	<group 
+	      		android:checkableBehavior="single">
+			 	 <item android:id="@+id/autoBtn"
+			            android:title="@string/auto"
+			            android:checked="true" />
+			      <item android:id="@+id/roadBtn"
+			            android:title="@string/road" />
+			      <item android:id="@+id/aerialBtn"
+			            android:title="@string/aerial" />
+			      <item android:id="@+id/birdseyeBtn"
+			   			android:title="@string/birdseye" />
+             </group>
+	     </menu>
+     </item>  
+     
+	 <item android:id="@+id/gpsMenuBtn"
+          android:icon="@android:drawable/ic_menu_mylocation"
+          android:title="@string/myLocation" />
+	 
+	 <item android:id="@+id/moreMenuBtn"
+	 	  android:icon="@android:drawable/ic_menu_more"	 
+	      android:title="@string/more">
+	      <menu>
+	      	<item android:id="@+id/aboutMenuBtn"
+		          android:icon="@android:drawable/ic_menu_info_details"
+		          android:title="@string/about" />
+		          
+		    <item android:id="@+id/layersMenuBtn"
+			      android:icon="@android:drawable/ic_menu_slideshow"
+			      android:title="@string/layers"/>
+		    
+		    <item android:id="@+id/clearMapMenuBtn"
+		          android:icon="@android:drawable/ic_menu_info_details"
+		          android:title="@string/clearMap" />
+	     </menu>   
+     </item>
+</menu>

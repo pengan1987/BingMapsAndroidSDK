@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Bing Maps Android SDK</string>
+    
+    <string name="app_description">This application is a demo of the Bing Maps Android SDK in action. Use this application as an example of how to create your own Bing Maps based Android application or create your own using the SDK created by </string>
+    
+    <string name="loading">Loading</string>
+    
+    <string name="details">Details</string>
+    
+    <!-- Menu text -->
+    <string name="myLocation">My Location</string>
+	<string name="search">Search</string>
+	<string name="directions">Directions</string>
+
+	<string name="more">More</string>	
+	<string name="clearMap">Clear Map</string>
+    <string name="about">About</string>
+    
+    <string name="mapMode">Map Mode</string>
+    <string name="auto">Auto</string>
+    <string name="road">Road</string>
+    <string name="aerial">Aerial</string>
+    <string name="birdseye">Birdseye</string>
+    
+    <string name="layers">Layers</string>
+    <string name="traffic">Traffic</string>
+</resources>

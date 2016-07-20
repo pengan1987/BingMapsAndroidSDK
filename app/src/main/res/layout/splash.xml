@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:id="@+id/splashScreen"
+	android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/black">
+    
+	<FrameLayout
+	    android:layout_width="fill_parent"
+	    android:layout_height="fill_parent">
+	    
+	    <ImageView
+			android:src="@drawable/bingmaps_logo"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_gravity="center|center_vertical"/>
+		
+		<TextView
+			android:text="@string/app_name"
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content" 
+			android:layout_gravity="center|bottom"
+			android:gravity="center"
+			android:textSize="20dip"
+			android:paddingLeft="15px"
+			android:paddingRight="15px"
+			android:paddingBottom="40px"/>				
+	</FrameLayout>
+</LinearLayout>
