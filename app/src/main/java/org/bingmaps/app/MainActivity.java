@@ -2,12 +2,13 @@ package org.bingmaps.app;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
-import android.content.res.Configuration;
 import android.location.Location;
 import android.location.LocationListener;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -34,7 +35,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class MainActivity extends Activity {
+public class MainActivity extends AppCompatActivity {
     private BingMapsView bingMapsView;
     private GPSManager _GPSManager;
     private EntityLayer _gpsLayer;
@@ -55,7 +56,8 @@ public class MainActivity extends Activity {
         // setRequestedOrientation(1);
 
         setContentView(R.layout.main);
-
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
         Initialize();
     }
 
@@ -90,7 +92,7 @@ public class MainActivity extends Activity {
                 _gpsLayer = new EntityLayer(Constants.DataLayers.GPS);
                 bingMapsView.getLayerManager().addLayer(_gpsLayer);
                 UpdateGPSPin();
-                upDtateMarker();
+                updateMarker();
             }
         });
 
@@ -123,32 +125,6 @@ public class MainActivity extends Activity {
                 bingMapsView.zoomIn();
             }
         });
-
-        final ZoomButton popMenuBtn = (ZoomButton) findViewById(R.id.popMenuBtn);
-        popMenuBtn.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                openOptionsMenu();
-            }
-        });
-    }
-
-    @Override
-    public void openOptionsMenu() {
-
-        Configuration config = getResources().getConfiguration();
-
-        if ((config.screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK)
-                > Configuration.SCREENLAYOUT_SIZE_LARGE) {
-
-            int originalScreenLayout = config.screenLayout;
-            config.screenLayout = Configuration.SCREENLAYOUT_SIZE_LARGE;
-            super.openOptionsMenu();
-            config.screenLayout = originalScreenLayout;
-
-        } else {
-            super.openOptionsMenu();
-        }
     }
 
     @Override
@@ -244,10 +220,10 @@ public class MainActivity extends Activity {
         }
     }
 
-    public void upDtateMarker() {
+    public void updateMarker() {
 
         List<Coordinate> listCoord = new ArrayList<Coordinate>();
-        // 这是实现地图覆盖的层 EntityLayer
+        // EntityLayer is used for map overlay
         EntityLayer entityLayer = (EntityLayer) bingMapsView.getLayerManager()
                 .getLayerByName(Constants.DataLayers.Search);
         if (entityLayer == null) {
@@ -255,12 +231,12 @@ public class MainActivity extends Activity {
         }
         entityLayer.clear();
 
-        double longitude = Double.parseDouble("116.24772");
-        double latitude = Double.parseDouble("38.5327");
+        double longitude = Double.parseDouble("-122.3");
+        double latitude = Double.parseDouble("47.6");
         Coordinate location = new Coordinate(latitude, longitude);
-        // 实现标记必须用到 Pushpin 来做标记。
-        // PushpinOptions可以对 Pushpin所要标记的设置属性
-        // opt.Icon图标 opt.Anchor点的位置
+        // Use Pushpin to mark on the map
+        // PushpinOptions is used to set attributes for Pushpin
+        // opt.Icon - The icon of PushPin, opt.Anchor - The position to display Pushpin
         PushpinOptions opt = new PushpinOptions();
         opt.Icon = Constants.PushpinIcons.RedFlag;
         opt.Width = 20;
@@ -272,17 +248,17 @@ public class MainActivity extends Activity {
             entityLayer.add(p);
         }
 
-        // 位置设置好之后不要忘了 将其加入到 Layer层当中
+        // Add the entityLayer to mapView's LayerManager
         bingMapsView.getLayerManager().addLayer(entityLayer);
         entityLayer.updateLayer();
 
-        // 设置中心点
+        // set the center location and zoom level of map
         bingMapsView.setCenterAndZoom(location, 11);
 
-        // 在bing地图中画线所要用到 Polyline
-        // PolylineOptions 是对线的属性设置
-        // polylineOptions.StrokeThickness 为线的大小
-        // polylineOptions.StrokeColor 线的颜色值
+        // Polyline used to draw lines on the MapView
+        // PolylineOptions have multiple attributes for the line
+        // polylineOptions.StrokeThickness
+        // polylineOptions.StrokeColor
         Polyline routeLine = new Polyline(listCoord);
         PolylineOptions polylineOptions = new PolylineOptions();
         polylineOptions.StrokeThickness = 3;

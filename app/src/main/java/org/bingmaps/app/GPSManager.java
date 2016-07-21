@@ -2,29 +2,29 @@ package org.bingmaps.app;
 
 import org.bingmaps.sdk.Coordinate;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
+import android.content.pm.PackageManager;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.support.v4.app.ActivityCompat;
 
 public class GPSManager {
 	private LocationManager _locationManager;
 	private String _bestProvider;
-	
-	public GPSManager(Activity activity, LocationListener listener)
-	{
-		_locationManager = (LocationManager)activity.getSystemService(Context.LOCATION_SERVICE);
-		if(_bestProvider == null)
-		{
+
+	public GPSManager(Activity activity, LocationListener listener) {
+		_locationManager = (LocationManager) activity.getSystemService(Context.LOCATION_SERVICE);
+		if (_bestProvider == null) {
 			Criteria criteria = new Criteria();
 			criteria.setAccuracy(Criteria.ACCURACY_FINE);
 			_bestProvider = _locationManager.getBestProvider(criteria, false);
 		}
-		
-		if(_bestProvider != null)
-		{
+
+		if (_bestProvider != null) {
 			_locationManager.requestLocationUpdates(_bestProvider, Constants.GPSTimeDelta, Constants.GPSDistanceDelta, listener);
 		}
 	}
