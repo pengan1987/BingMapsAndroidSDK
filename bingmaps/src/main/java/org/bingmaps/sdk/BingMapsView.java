@@ -2,6 +2,7 @@ package org.bingmaps.sdk;
 
 import android.content.Context;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.ViewConfiguration;
 import android.webkit.JavascriptInterface;
 import android.webkit.WebView;
@@ -102,6 +103,7 @@ public class BingMapsView extends WebView {
      * @param js JavaScript to inject into Web View
      */
     public void injectJavaScript(final String js) {
+        Log.d("BingMapsViewJS", js);
         this.post(new Runnable() {
             @Override
             public void run() {

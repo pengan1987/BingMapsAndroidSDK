@@ -329,4 +329,4 @@ var Utilities = new function(){
 	};
 };
 
-Microsoft.Maps.moduleLoaded('mapModule');
+//Microsoft.Maps.moduleLoaded('mapModule');
