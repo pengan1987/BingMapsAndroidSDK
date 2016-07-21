@@ -1,33 +1,49 @@
 <!DOCTYPE html PUBLIC "-//WEC//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
+
 <head>
 	<title></title>
 	<meta http-equiv="Content-Type" content="test/html;charset=utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no;"/>
-	<meta name="apple-mobile-web-app-capable" content="yes"/>
-	<script type='text/javascript' src='http://www.bing.com/api/maps/mapcontrol?branch=release'></script>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<script type='text/javascript' src='http://www.bing.com/api/maps/mapcontrol?branch=release&callback=GetMap' async defer></script>
 	<script type="text/javascript" src="BingMapsAndroid.js"></script>
 	<style type="text/css">
-		*{padding:0;margin:0;}
-		html, body{height:100%;font-family:arial;font-size:12px;background-color:#000;}
-		.MicrosoftMap{background-color:#000 !important;}
-		.title{overflow:hidden;width:170px;}
-	</style>
-</head>
-<body onload='GetMap();'>
-	<div id="mapDiv" style="position:relative;width:100%;height:100%;"></div>	
-	<!--<script type="text/javascript" src="file:///android_asset/BingMapsAndroid.js"></script>-->
-	<!--<script type="text/javascript" src="BingMapsAndroid.js"></script>-->
-
-	<script type="text/javascript">
-		//Microsoft.Maps.registerModule('mapModule', 'file:///android_asset/BingMapsAndroid.js');
-		//Microsoft.Maps.registerModule('mapModule', 'BingMapsAndroid.js');
-
-		function GetMap(){
-			BingMapsAndroid.LoadMap('mapDiv');
+		* {
+			padding: 0;
+			margin: 0;
 		}
 		
-		//Microsoft.Maps.loadModule('mapModule', { callback: GetMap });
-	</script>
+		html,
+		body {
+			height: 100%;
+			font-family: arial;
+			font-size: 12px;
+			background-color: #000;
+		}
+		
+		.MicrosoftMap {
+			background-color: #000 !important;
+		}
+		
+		.title {
+			overflow: hidden;
+			width: 170px;
+		}
+	</style>
+</head>
+
+<body>
+	<div id="mapDiv" style="position:relative;width:100%;height:100%;"></div>
+	<!--<script type="text/javascript" src="file:///android_asset/BingMapsAndroid.js"></script>-->
+	<!--<script type="text/javascript" src="BingMapsAndroid.js"></script>-->
+	<script type="text/javascript">
+        function GetMap() 
+        {
+            Microsoft.Maps.registerModule('mapModule', 'file:///android_asset/BingMapsAndroid.js');
+            Microsoft.Maps.loadModule('mapModule', function () { BingMapsAndroid.LoadMap('mapDiv'); });
+        }
+    </script>
 </body>
+
 </html>

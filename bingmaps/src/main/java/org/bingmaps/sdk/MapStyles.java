@@ -6,9 +6,9 @@ package org.bingmaps.sdk;
  */
 public class MapStyles {
 	/**
-	 * The auto map style.
+	 * The OrdnanceSurvey map style.
 	 */
-	public static final String Auto = "Microsoft.Maps.MapTypeId.auto";
+	public static final String OrdnanceSurvey = "Microsoft.Maps.MapTypeId.ordnanceSurvey";
 	
 	/**
 	 * The Road map style.
@@ -21,7 +21,7 @@ public class MapStyles {
 	public static final String Aerial = "Microsoft.Maps.MapTypeId.aerial";
 	
 	/**
-	 * The Birdseye map style.
+	 * The StreetSide map style.
 	 */
-	public static final String Birdseye = "Microsoft.Maps.MapTypeId.birdseye";
+	public static final String StreetSide = "Microsoft.Maps.MapTypeId.streetside";
 }

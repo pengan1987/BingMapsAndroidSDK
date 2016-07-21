@@ -12,11 +12,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.Window;
 import android.widget.ViewFlipper;
-import android.widget.ZoomButton;
 
 import org.bingmaps.sdk.BingMapsView;
 import org.bingmaps.sdk.Coordinate;
@@ -63,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void Initialize() {
         _baseActivity = this;
-        _GPSManager = new GPSManager((Activity) this, new GPSLocationListener());
+        _GPSManager = new GPSManager(this, new GPSLocationListener());
 
         // Add more data layers here
         _dataLayers = new String[]{getString(R.string.traffic)};
@@ -109,22 +106,6 @@ public class MainActivity extends AppCompatActivity {
         // Load the map
         bingMapsView.loadMap(Constants.BingMapsKey,
                 _GPSManager.GetCoordinate(), Constants.DefaultGPSZoomLevel);
-
-        // Create zoom out button functionality
-        final ZoomButton zoomOutBtn = (ZoomButton) findViewById(R.id.zoomOutBtn);
-        zoomOutBtn.setOnClickListener(new OnClickListener() {
-            public void onClick(View v) {
-                bingMapsView.zoomOut();
-            }
-        });
-
-        // Create zoom button in functionality
-        final ZoomButton zoomInBtn = (ZoomButton) findViewById(R.id.zoomInBtn);
-        zoomInBtn.setOnClickListener(new OnClickListener() {
-            public void onClick(View v) {
-                bingMapsView.zoomIn();
-            }
-        });
     }
 
     @Override
@@ -139,12 +120,15 @@ public class MainActivity extends AppCompatActivity {
         // Handle item selection
         int selectedId = item.getItemId();
 
-        // Map Mode menu items
-        if (selectedId == R.id.autoBtn) {
-            bingMapsView.setMapStyle(MapStyles.Auto);
-            item.setChecked(!item.isChecked());
-            return true;
+        if (selectedId == R.id.zoomInBtn){
+            bingMapsView.zoomIn();
         }
+
+        if (selectedId == R.id.zoomOutBtn){
+            bingMapsView.zoomOut();
+        }
+
+        // Map Mode menu items
         if (selectedId == R.id.roadBtn) {
             bingMapsView.setMapStyle(MapStyles.Road);
             item.setChecked(!item.isChecked());
@@ -155,8 +139,8 @@ public class MainActivity extends AppCompatActivity {
             item.setChecked(!item.isChecked());
             return true;
         }
-        if (selectedId == R.id.birdseyeBtn) {
-            bingMapsView.setMapStyle(MapStyles.Birdseye);
+        if (selectedId == R.id.streetSideBtn) {
+            bingMapsView.setMapStyle(MapStyles.StreetSide);
             item.setChecked(!item.isChecked());
             return true;
         }
@@ -222,7 +206,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void updateMarker() {
 
-        List<Coordinate> listCoord = new ArrayList<Coordinate>();
+        List<Coordinate> listCoord = new ArrayList<>();
         // EntityLayer is used for map overlay
         EntityLayer entityLayer = (EntityLayer) bingMapsView.getLayerManager()
                 .getLayerByName(Constants.DataLayers.Search);
