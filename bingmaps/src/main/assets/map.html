@@ -1,20 +1,45 @@
 <!DOCTYPE html PUBLIC "-//WEC//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
+
 <head>
 	<title></title>
 	<meta http-equiv="Content-Type" content="test/html;charset=utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no;"/>
-	<meta name="apple-mobile-web-app-capable" content="yes"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+	<meta name="apple-mobile-web-app-capable" content="yes" />
 	<script charset="UTF-8" type="text/javascript" src="http://ecn.dev.virtualearth.net/mapcontrol/mapcontrol.ashx?v=7.0"></script>
 	<style type="text/css">
-		*{padding:0;margin:0;}
-		html, body{height:100%;font-family:arial;font-size:12px;background-color:#000;}
-		.MicrosoftMap{background-color:#000 !important;}
-		.title{overflow:hidden;width:170px;}
+		* {
+			padding: 0;
+			margin: 0;
+		}
+		
+		html,
+		body {
+			height: 100%;
+			font-family: arial;
+			font-size: 12px;
+			background-color: #000;
+		}
+		
+		.MicrosoftMap {
+			background-color: #000 !important;
+		}
+		
+		.title {
+			overflow: hidden;
+			width: 170px;
+		}
+		
+		#mapDiv {
+			position: relative;
+			width: 100%;
+			height: 100%;
+		}
 	</style>
 </head>
+
 <body>
-	<div id="mapDiv" style="position:relative;width:100%;height:100%;"></div>	
+	<div id="mapDiv" />
 	<!--<script type="text/javascript" src="file:///android_asset/BingMapsAndroid.js"></script>-->
 	<!--<script type="text/javascript" src="BingMapsAndroid.js"></script>-->
 
@@ -29,4 +54,5 @@
 		Microsoft.Maps.loadModule('mapModule', { callback: GetMap });
 	</script>
 </body>
+
 </html>
