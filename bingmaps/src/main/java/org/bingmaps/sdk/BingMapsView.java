@@ -62,7 +62,7 @@ public class BingMapsView extends WebView {
     /**
      * Returns the bounds of the map view.
      *
-     * @returns A LocationRect of the bounds of the map view.
+     * @return A LocationRect of the bounds of the map view.
      */
     public LocationRect getBounds() {
         return _bounds;

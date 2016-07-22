@@ -82,7 +82,7 @@ public class Utilities {
 	
 	/**
 	 * Calculate the distance between two coordinates for a given spherical radius.
-	 * @param origin First coordinate to calculate distance between<
+	 * @param origin First coordinate to calculate distance between
 	 * @param destination Second coordinate to calculate distance between
 	 * @param radius A double that represents the radius of the sphere in which the coordinates lie. e.g. Earth Radius.
 	 * @return A distance in the specified units.

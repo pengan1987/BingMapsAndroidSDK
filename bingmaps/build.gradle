@@ -1,4 +1,6 @@
 apply plugin: 'com.android.library'
+apply plugin: 'com.github.dcendents.android-maven'
+apply plugin: 'com.jfrog.bintray'
 
 android {
     compileSdkVersion 24
@@ -8,7 +10,7 @@ android {
         minSdkVersion 9
         targetSdkVersion 24
         versionCode 1
-        versionName "1.0"
+        versionName "1.5.1"
     }
     buildTypes {
         release {
@@ -21,5 +23,72 @@ android {
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     testCompile 'junit:junit:4.12'
-    compile 'com.android.support:appcompat-v7:24.1.0'
+}
+
+
+def siteUrl = 'https://github.com/pengan1987/BingMapsAndroidSDK'
+def gitUrl = 'https://github.com/pengan1987/BingMapsAndroidSDK.git'
+group = "org.bingmaps" // Maven Group ID for the artifact
+version = "1.5.1"
+task writeNewPom {
+    // This generates POM.xml with proper parameters
+    pom {
+        project {
+            packaging 'aar'
+            // Add your description here
+            name 'Bing Maps Android SDK'
+            url siteUrl
+            // Set your license
+            licenses {
+                license {
+                    name 'Microsoft Public License'
+                    url 'https://opensource.org/licenses/MS-PL'
+                }
+            }
+            developers {
+                developer {
+                    id 'pengan1987'
+                    name 'Pengan Zhou'
+                    email 'pengan1987@msn.com'
+                }
+            }
+            scm {
+                connection gitUrl
+                developerConnection gitUrl
+                url siteUrl
+            }
+        }
+    }.writeTo("$buildDir/poms/pom-default.xml")
+}
+
+task sourcesJar(type: Jar) {
+    from android.sourceSets.main.java.srcDirs
+    classifier = 'sources'
+}
+task javadoc(type: Javadoc) {
+    source = android.sourceSets.main.java.srcDirs
+    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
+}
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    classifier = 'javadoc'
+    from javadoc.destinationDir
+}
+artifacts {
+    archives javadocJar
+    archives sourcesJar
+}
+Properties properties = new Properties()
+properties.load(project.rootProject.file('local.properties').newDataInputStream())
+bintray {
+    user = properties.getProperty("BINTRAY_USER")
+    key = properties.getProperty("BINTRAY_APIKEY")
+    configurations = ['archives']
+    pkg {
+        repo = "maven"
+        name = "bingmaps"
+        websiteUrl = siteUrl
+        vcsUrl = gitUrl
+        licenses = ["MS-PL"]
+        publish = true
+    }
 }

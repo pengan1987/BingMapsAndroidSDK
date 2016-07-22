@@ -17,6 +17,13 @@ android {
     }
 }
 
+repositories {
+    maven {
+        url 'https://dl.bintray.com/pengan1987/maven/'
+    }
+}
+
 dependencies {
-    compile project(':bingmaps')
+    compile 'org.bingmaps:bingmaps:1.5.1@aar'
+    compile 'com.android.support:appcompat-v7:24.1.0'
 }

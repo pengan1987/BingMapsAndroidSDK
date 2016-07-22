@@ -40,7 +40,6 @@ public class LayerManager {
 	 * Adds an object that inherits from the BaseLayer class to the map. 
 	 * i.e. EntityLayer or TileLayer.
 	 * @param layer - BaseLayer object
-	 * @param viewLayer - A boolean indicating if map should be positioned to view all shapes in the layer.
 	 */
 	public void addLayer(EntityLayer layer){
 		if(layer.hasPendingEntites()){
