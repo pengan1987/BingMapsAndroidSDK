@@ -8,14 +8,13 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:orientation="vertical"
-        android:paddingLeft="5px"
-        android:paddingRight="5px">
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:inputType="textMultiLine"
             android:scrollHorizontally="false"
             android:text="@string/app_description" />
 

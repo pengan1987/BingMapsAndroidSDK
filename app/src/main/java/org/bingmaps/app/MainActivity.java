@@ -120,11 +120,11 @@ public class MainActivity extends AppCompatActivity {
         // Handle item selection
         int selectedId = item.getItemId();
 
-        if (selectedId == R.id.zoomInBtn){
+        if (selectedId == R.id.zoomInBtn) {
             bingMapsView.zoomIn();
         }
 
-        if (selectedId == R.id.zoomOutBtn){
+        if (selectedId == R.id.zoomOutBtn) {
             bingMapsView.zoomOut();
         }
 
@@ -141,6 +141,11 @@ public class MainActivity extends AppCompatActivity {
         }
         if (selectedId == R.id.streetSideBtn) {
             bingMapsView.setMapStyle(MapStyles.StreetSide);
+            item.setChecked(!item.isChecked());
+            return true;
+        }
+        if (selectedId == R.id.ordnanceSurveyBtn) {
+            bingMapsView.setMapStyle(MapStyles.OrdnanceSurvey);
             item.setChecked(!item.isChecked());
             return true;
         }
@@ -188,6 +193,11 @@ public class MainActivity extends AppCompatActivity {
         if (selectedId == R.id.directionsMenuBtn) {
             DialogLauncher.LaunchDirectionsDialog(this, bingMapsView,
                     loadingScreenHandler);
+            return true;
+        }
+
+        if (selectedId == R.id.overrideCultureBtn) {
+            DialogLauncher.LaunchOverrideCultureDialog(this, bingMapsView);
             return true;
         }
         return super.onOptionsItemSelected(item);

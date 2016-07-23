@@ -28,4 +28,6 @@
     <string name="traffic">Traffic</string>
     <string name="zoomIn">Zoom In</string>
     <string name="zoomOut">Zoom Out</string>
+    <string name="ordnanceSurvey">Ordnance Survey(UK)</string>
+    <string name="overrideCulture">Override Culture</string>
 </resources>

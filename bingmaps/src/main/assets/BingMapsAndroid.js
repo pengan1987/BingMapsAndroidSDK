@@ -183,6 +183,10 @@ var BingMapsAndroid = new function () {
 		_map.setView({ zoom: z - 1 });
 	};
 
+	this.OverrideCulture = function (mkt) {
+       MM.GlobalConfig.dynamicProperties.market = mkt;
+	}
+
 	function setMapDimensions() {
         _map.setOptions({ width: window.innerWidth, height: window.innerHeight });
 	}
@@ -283,4 +287,4 @@ var Utilities = new function () {
 	};
 };
 
-Microsoft.Maps.moduleLoaded('mapModule');
+//Microsoft.Maps.moduleLoaded('mapModule');

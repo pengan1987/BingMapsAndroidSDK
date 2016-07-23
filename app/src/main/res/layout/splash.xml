@@ -23,9 +23,9 @@
 			android:layout_height="wrap_content" 
 			android:layout_gravity="center|bottom"
 			android:gravity="center"
-			android:textSize="20dip"
-			android:paddingLeft="15px"
-			android:paddingRight="15px"
-			android:paddingBottom="40px"/>				
+			android:textSize="20sp"
+			android:paddingLeft="15dp"
+			android:paddingRight="15dp"
+			android:paddingBottom="40dp"/>
 	</FrameLayout>
 </LinearLayout>

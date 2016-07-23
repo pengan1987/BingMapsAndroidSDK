@@ -38,6 +38,10 @@
                 <item
                     android:id="@+id/streetSideBtn"
                     android:title="@string/streetSide" />
+
+                <item
+                    android:id="@+id/ordnanceSurveyBtn"
+                    android:title="@string/ordnanceSurvey" />
             </group>
         </menu>
     </item>
@@ -66,6 +70,11 @@
                 android:id="@+id/clearMapMenuBtn"
                 android:icon="@android:drawable/ic_menu_info_details"
                 android:title="@string/clearMap" />
+
+            <item
+                android:id="@+id/overrideCultureBtn"
+                android:icon="@android:drawable/ic_menu_info_details"
+                android:title="@string/overrideCulture" />
         </menu>
     </item>
 </menu>

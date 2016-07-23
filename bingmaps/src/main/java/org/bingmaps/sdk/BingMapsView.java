@@ -1,6 +1,7 @@
 package org.bingmaps.sdk;
 
 import android.content.Context;
+import android.text.Editable;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.ViewConfiguration;
@@ -223,6 +224,11 @@ public class BingMapsView extends WebView {
         return true;
     }
 
+    public void overrideCulture(String mkt) {
+        injectJavaScript("BingMapsAndroid.OverrideCulture('" + mkt + "');");
+    }
+
+
 	/* Private Methods */
 
     /*
@@ -247,6 +253,7 @@ public class BingMapsView extends WebView {
 
         _layerManager = new LayerManager(this);
     }
+
 
 	/* Private internal classes */
 
