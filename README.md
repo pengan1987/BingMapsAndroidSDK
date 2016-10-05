@@ -10,3 +10,6 @@ Archived: https://web.archive.org/web/20160324065124/http://bingmapsandroidsdk.c
 This project is a unoffical fork for the Bing Maps Android SDK to make the original SDK works on 4.0+ devices (Will optimized for 4.4+)
 
 Also, I'm planning to migrate this SDK from current Bing Maps V7 to the most recent Bing Maps V8, it's already partially works, you can check it on the V8WebControl branch.
+
+The demo app using V8WebControl is uploaded to Google Play store
+https://play.google.com/store/apps/details?id=org.bingmaps.app
