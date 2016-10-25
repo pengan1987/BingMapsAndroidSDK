@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">必应地图SDK</string>
+    
+    <string name="app_description">This application is a demo of the Bing Maps Android SDK in action. Use this application as an example of how to create your own Bing Maps based Android application or create your own using the SDK created by </string>
+    
+    <string name="loading">加载中</string>
+    
+    <string name="details">详情</string>
+    
+    <!-- Menu text -->
+    <string name="myLocation">我的位置</string>
+	<string name="search">搜索</string>
+	<string name="directions">Directions</string>
+
+	<string name="more">更多</string>
+	<string name="clearMap">Clear Map</string>
+    <string name="about">关于</string>
+    
+    <string name="mapMode">地图模式</string>
+    <string name="auto">自动</string>
+    <string name="road">道路</string>
+    <string name="aerial">航拍</string>
+    <string name="birdseye">鸟瞰</string>
+    <string name="streetSide">街景</string>
+
+    <string name="layers">图层</string>
+    <string name="traffic">交通状况</string>
+    <string name="zoomIn">放大</string>
+    <string name="zoomOut">缩小</string>
+    <string name="ordnanceSurvey">Ordnance Survey(仅限英国)</string>
+    <string name="overrideCulture">覆盖国家设置</string>
+    <string name="ok">确定</string>
+</resources>

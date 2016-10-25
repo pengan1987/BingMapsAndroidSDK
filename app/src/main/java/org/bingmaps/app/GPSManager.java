@@ -15,6 +15,7 @@ import android.support.v4.app.ActivityCompat;
 public class GPSManager {
 	private LocationManager _locationManager;
 	private String _bestProvider;
+	private Activity mActivity;
 
 	public GPSManager(Activity activity, LocationListener listener) {
 		_locationManager = (LocationManager) activity.getSystemService(Context.LOCATION_SERVICE);
@@ -25,22 +26,26 @@ public class GPSManager {
 		}
 
 		if (_bestProvider != null) {
-			_locationManager.requestLocationUpdates(_bestProvider, Constants.GPSTimeDelta, Constants.GPSDistanceDelta, listener);
+			if (ActivityCompat.checkSelfPermission(activity, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
+					|| ActivityCompat.checkSelfPermission(activity, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+				_locationManager.requestLocationUpdates(_bestProvider, Constants.GPSTimeDelta, Constants.GPSDistanceDelta, listener);
+			}
 		}
 	}
 
 	public Coordinate GetCoordinate(){
 		if(_bestProvider != null)
 		{
-			Location location = _locationManager.getLastKnownLocation(_bestProvider);
-			if(location != null)
-			{
-				double lat = location.getLatitude();
-				double lon = location.getLongitude();
-				return new Coordinate(lat, lon);
+			if (ActivityCompat.checkSelfPermission(mActivity, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
+					|| ActivityCompat.checkSelfPermission(mActivity, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+				Location location = _locationManager.getLastKnownLocation(_bestProvider);
+				if (location != null) {
+					double lat = location.getLatitude();
+					double lon = location.getLongitude();
+					return new Coordinate(lat, lon);
+				}
 			}
 		}
-		
 		return null;
 	}
 }

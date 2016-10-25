@@ -40,10 +40,10 @@ public class DialogLauncher {
         final View aboutView = activity.getLayoutInflater().inflate(R.layout.about, (ViewGroup) activity.findViewById(R.id.aboutView));
 
         AlertDialog.Builder aboutAlert = new AlertDialog.Builder(activity)
-                .setTitle("About")
+                .setTitle(activity.getString(R.string.about))
                 .setIcon(android.R.drawable.ic_dialog_info)
                 .setView(aboutView)
-                .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                .setPositiveButton(activity.getString(R.string.ok), new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int whichButton) {
                         // Canceled. Do nothing
                     }
@@ -78,7 +78,7 @@ public class DialogLauncher {
         final View searchView = activity.getLayoutInflater().inflate(R.layout.search_input, (ViewGroup) activity.findViewById(R.id.searchInputView));
 
         AlertDialog.Builder searchAlert = new AlertDialog.Builder(activity)
-                .setTitle("Search")
+                .setTitle(activity.getString(R.string.search))
                 .setIcon(android.R.drawable.ic_menu_search)
                 .setView(searchView)
                 .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -86,7 +86,7 @@ public class DialogLauncher {
                         // Canceled. Do nothing
                     }
                 })
-                .setPositiveButton("Search", new DialogInterface.OnClickListener() {
+                .setPositiveButton(activity.getString(R.string.search), new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int whichButton) {
                         EditText input = (EditText) searchView.findViewById(R.id.searchInput);
                         String searchText = input.getText().toString().trim();
@@ -201,7 +201,7 @@ public class DialogLauncher {
         final View directionsView = activity.getLayoutInflater().inflate(R.layout.directions_input, (ViewGroup) activity.findViewById(R.id.directionsInputView));
 
         AlertDialog.Builder directionsAlert = new AlertDialog.Builder(activity)
-                .setTitle("Directions")
+                .setTitle(activity.getString(R.string.directions))
                 .setView(directionsView)
                 .setIcon(android.R.drawable.ic_menu_directions)
                 .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
