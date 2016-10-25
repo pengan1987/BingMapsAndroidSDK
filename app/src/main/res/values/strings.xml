@@ -38,6 +38,8 @@
     <string name="from">From</string>
     <string name="to">To</string>
     <string name="enterAddress">Enter Address</string>
-    <string name="sampleLang">en_US</string>
+    <string name="sampleLang">en-US</string>
     <string name="enterCountryCode">Enter Country Code</string>
+    <string name="culture_mkt_param">Culture (mkt parameter)</string>
+    <string name="change">Change</string>
 </resources>

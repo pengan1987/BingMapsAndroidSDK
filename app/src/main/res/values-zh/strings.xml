@@ -38,6 +38,8 @@
     <string name="from">出发</string>
     <string name="to">到达</string>
     <string name="enterAddress">输入地址</string>
-    <string name="sampleLang">zh_CN</string>
+    <string name="sampleLang">zh-CN</string>
     <string name="enterCountryCode">请输入国家代码</string>
+    <string name="culture_mkt_param">覆盖国家设置（mkt参数）</string>
+    <string name="change">更改</string>
 </resources>

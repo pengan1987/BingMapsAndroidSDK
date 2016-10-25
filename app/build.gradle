@@ -6,6 +6,8 @@ android {
         minSdkVersion 9
         targetSdkVersion 25
         applicationId 'org.bingmaps.app'
+        versionCode 2
+        versionName "1.0.1"
     }
     buildTypes {
         release {

@@ -1,6 +1,21 @@
 package org.bingmaps.app;
 
-import java.util.HashMap;
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.DialogInterface.OnMultiChoiceClickListener;
+import android.content.Intent;
+import android.net.Uri;
+import android.os.Handler;
+import android.os.Message;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.LinearLayout;
+import android.widget.ScrollView;
+import android.widget.TextView;
 
 import org.bingmaps.bsds.BingSpatialDataService;
 import org.bingmaps.bsds.Record;
@@ -17,22 +32,7 @@ import org.bingmaps.sdk.PushpinOptions;
 import org.bingmaps.sdk.TileLayer;
 import org.bingmaps.sdk.Utilities;
 
-import android.app.Activity;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
-import android.content.DialogInterface.OnMultiChoiceClickListener;
-import android.content.Intent;
-import android.net.Uri;
-import android.os.Handler;
-import android.os.Message;
-import android.view.View;
-import android.view.ViewGroup;
-import android.view.View.OnClickListener;
-import android.widget.EditText;
-import android.widget.ImageButton;
-import android.widget.LinearLayout;
-import android.widget.ScrollView;
-import android.widget.TextView;
+import java.util.HashMap;
 
 public class DialogLauncher {
 
@@ -314,15 +314,15 @@ public class DialogLauncher {
         final View cultureView = activity.getLayoutInflater().inflate(R.layout.culture_input, (ViewGroup) activity.findViewById(R.id.cultureInputView));
 
         AlertDialog.Builder cultureAlert = new AlertDialog.Builder(activity)
-                .setTitle("Culture (mkt parameter)")
+                .setTitle(activity.getString(R.string.culture_mkt_param))
                 .setIcon(android.R.drawable.ic_menu_search)
                 .setView(cultureView)
-                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                .setNegativeButton(activity.getString(R.string.cancel), new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int whichButton) {
                         // Canceled. Do nothing
                     }
                 })
-                .setPositiveButton("Change", new DialogInterface.OnClickListener() {
+                .setPositiveButton(activity.getString(R.string.change), new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int whichButton) {
                         EditText input = (EditText) cultureView.findViewById(R.id.cultureInput);
                         bingMapsView.overrideCulture(input.getText().toString().trim());
@@ -331,7 +331,7 @@ public class DialogLauncher {
         cultureAlert.show();
     }
 
-    public static void DemoDataApi(final BingMapsView bingMapsView, final Handler loadingScreenHandler,org.bingmaps.rest.models.Location l){
+    public static void DemoDataApi(final BingMapsView bingMapsView, final Handler loadingScreenHandler, org.bingmaps.rest.models.Location l) {
         //Search for nearby locations
         BingSpatialDataService bsds = new BingSpatialDataService(
                 Constants.BingSpatialAccessId,
