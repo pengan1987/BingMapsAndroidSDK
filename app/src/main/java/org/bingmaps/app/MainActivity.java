@@ -1,18 +1,25 @@
 package org.bingmaps.app;
 
+import android.Manifest;
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.Window;
+import android.widget.ImageButton;
 import android.widget.ViewFlipper;
 
 import org.bingmaps.sdk.BingMapsView;
@@ -32,20 +39,54 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import static org.bingmaps.app.Constants.PERMISSION_LOCATION_REQUEST_CODE;
+
 public class MainActivity extends AppCompatActivity {
+    @SuppressWarnings("unused")
+    private final MapMovedListener mapMovedListener = new MapMovedListener() {
+        public void onAvailableChecked() {
+            // OPTION Add logic to Update Layers here.
+            // This will update data layers when the map is moved.
+        }
+    };
+    CharSequence[] _dataLayers;
+    boolean[] _dataLayerSelections;
     private BingMapsView bingMapsView;
     private GPSManager _GPSManager;
     private EntityLayer _gpsLayer;
     private ProgressDialog _loadingScreen;
-
+    /**
+     * Handler for loading Screen
+     */
+    protected Handler loadingScreenHandler = new Handler() {
+        public void handleMessage(Message msg) {
+            if (msg.arg1 == 0) {
+                _loadingScreen.hide();
+            } else {
+                _loadingScreen.show();
+            }
+        }
+    };
     private Activity _baseActivity;
+    private ImageButton btnLayers;
+    private ImageButton btnZoomIn;
+    private ImageButton btnZoomOut;
+    private ImageButton btnMyLocation;
 
-    CharSequence[] _dataLayers;
-    boolean[] _dataLayerSelections;
+    public static boolean checkPermission(final Context context) {
+        return ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
+                && ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED;
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Thread.setDefaultUncaughtExceptionHandler(new Thread.UncaughtExceptionHandler() {
+            @Override
+            public void uncaughtException(Thread thread, Throwable throwable) {
+                throwable.printStackTrace();
+            }
+        });
 
         requestWindowFeature(Window.FEATURE_NO_TITLE);
 
@@ -55,11 +96,66 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        btnLayers = (ImageButton) findViewById(R.id.btnLayerOption);
+        btnLayers.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DialogLauncher.LaunchLayersDialog(MainActivity.this, bingMapsView, _dataLayers, _dataLayerSelections);
+            }
+        });
+
+        btnZoomIn = (ImageButton) findViewById(R.id.btnZoomIn);
+        btnZoomIn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                bingMapsView.zoomIn();
+            }
+        });
+
+        btnZoomOut = (ImageButton) findViewById(R.id.btnZoomOut);
+        btnZoomOut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                bingMapsView.zoomOut();
+            }
+        });
+
+        btnMyLocation = (ImageButton) findViewById(R.id.btnMyLocation);
+        btnMyLocation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Coordinate coord = _GPSManager.GetCoordinate();
+                if (coord != null) {
+                    // Center on users GPS location
+                    bingMapsView.setCenterAndZoom(coord,
+                            Constants.DefaultGPSZoomLevel);
+                }
+            }
+        });
+
         Initialize();
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        if (requestCode == PERMISSION_LOCATION_REQUEST_CODE) {
+            if (grantResults.length > 0) {
+                _GPSManager.refresh();
+            }
+        }
     }
 
     private void Initialize() {
         _baseActivity = this;
+
+        if (!checkPermission(this)) {
+            ActivityCompat.requestPermissions(
+                    this,
+                    new String[]{Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION},
+                    PERMISSION_LOCATION_REQUEST_CODE);
+        }
+
         _GPSManager = new GPSManager(this, new GPSLocationListener());
 
         // Add more data layers here
@@ -120,14 +216,6 @@ public class MainActivity extends AppCompatActivity {
         // Handle item selection
         int selectedId = item.getItemId();
 
-        if (selectedId == R.id.zoomInBtn) {
-            bingMapsView.zoomIn();
-        }
-
-        if (selectedId == R.id.zoomOutBtn) {
-            bingMapsView.zoomOut();
-        }
-
         // Map Mode menu items
         if (selectedId == R.id.roadBtn) {
             bingMapsView.setMapStyle(MapStyles.Road);
@@ -154,11 +242,7 @@ public class MainActivity extends AppCompatActivity {
             DialogLauncher.LaunchAboutDialog(this);
             return true;
         }
-        if (selectedId == R.id.layersMenuBtn) {
-            DialogLauncher.LaunchLayersDialog(this, bingMapsView, _dataLayers,
-                    _dataLayerSelections);
-            return true;
-        }
+
         if (selectedId == R.id.clearMapMenuBtn) {
             bingMapsView.getLayerManager().clearLayer(null);
 
@@ -172,17 +256,7 @@ public class MainActivity extends AppCompatActivity {
             UpdateGPSPin();
             return true;
         }
-        // GPS Menu Item
-        if (selectedId == R.id.gpsMenuBtn) {
-            Coordinate coord = _GPSManager.GetCoordinate();
 
-            if (coord != null) {
-                // Center on users GPS location
-                bingMapsView.setCenterAndZoom(coord,
-                        Constants.DefaultGPSZoomLevel);
-            }
-            return true;
-        }
         // Search Menu Item
         if (selectedId == R.id.searchMenuBtn) {
             DialogLauncher.LaunchSearchDialog(this, bingMapsView,
@@ -215,7 +289,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void updateMarker() {
-
         List<Coordinate> listCoord = new ArrayList<>();
         // EntityLayer is used for map overlay
         EntityLayer entityLayer = (EntityLayer) bingMapsView.getLayerManager()
@@ -224,10 +297,6 @@ public class MainActivity extends AppCompatActivity {
             entityLayer = new EntityLayer(Constants.DataLayers.Search);
         }
         entityLayer.clear();
-
-        double longitude = Double.parseDouble("-122.3");
-        double latitude = Double.parseDouble("47.6");
-        Coordinate location = new Coordinate(latitude, longitude);
         // Use Pushpin to mark on the map
         // PushpinOptions is used to set attributes for Pushpin
         // opt.Icon - The icon of PushPin, opt.Anchor - The position to display Pushpin
@@ -236,18 +305,14 @@ public class MainActivity extends AppCompatActivity {
         opt.Width = 20;
         opt.Height = 35;
         opt.Anchor = new Point(11, 10);
-        Pushpin p = new Pushpin(location, opt);
-        if (p.Location != null) {
-            listCoord.add(location);
-            entityLayer.add(p);
-        }
 
         // Add the entityLayer to mapView's LayerManager
         bingMapsView.getLayerManager().addLayer(entityLayer);
         entityLayer.updateLayer();
 
         // set the center location and zoom level of map
-        bingMapsView.setCenterAndZoom(location, 11);
+        Coordinate coordinate = _GPSManager.GetCoordinate();
+        bingMapsView.setCenterAndZoom(coordinate, 11);
 
         // Polyline used to draw lines on the MapView
         // PolylineOptions have multiple attributes for the line
@@ -258,29 +323,7 @@ public class MainActivity extends AppCompatActivity {
         polylineOptions.StrokeThickness = 3;
         routeLine.Options = polylineOptions;
         entityLayer.add(routeLine);
-
     }
-
-    @SuppressWarnings("unused")
-    private final MapMovedListener mapMovedListener = new MapMovedListener() {
-        public void onAvailableChecked() {
-            // OPTION Add logic to Update Layers here.
-            // This will update data layers when the map is moved.
-        }
-    };
-
-    /**
-     * Handler for loading Screen
-     */
-    protected Handler loadingScreenHandler = new Handler() {
-        public void handleMessage(Message msg) {
-            if (msg.arg1 == 0) {
-                _loadingScreen.hide();
-            } else {
-                _loadingScreen.show();
-            }
-        }
-    };
 
     public class GPSLocationListener implements LocationListener {
         public void onLocationChanged(Location arg0) {

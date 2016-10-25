@@ -21,7 +21,9 @@ public class Constants {
 	public static final int GPSTimeDelta = 1000;
 	
 	//Amount of time to display splash screen as map loads in seconds.
-	public static final int SplashDisplayTime = 3000; 
+	public static final int SplashDisplayTime = 3000;
+
+	public static final int PERMISSION_LOCATION_REQUEST_CODE = 833;
 	
 	public class PanelIds{
 		public static final int Splash = 0;

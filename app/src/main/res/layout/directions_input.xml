@@ -8,29 +8,29 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:paddingLeft="5dp"
-        android:paddingRight="5dp">
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp">
 
         <TextView
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="From" />
+            android:text="@string/from" />
 
         <EditText
             android:id="@+id/directionsFromInput"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:singleLine="true" />
+            android:maxLines="1" />
 
         <TextView
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="To" />
+            android:text="@string/to" />
 
         <EditText
             android:id="@+id/directionsToInput"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:singleLine="true" />
+            android:maxLines="1" />
     </LinearLayout>
 </ScrollView>

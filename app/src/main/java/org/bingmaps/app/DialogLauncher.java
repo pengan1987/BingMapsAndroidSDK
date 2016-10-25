@@ -67,7 +67,7 @@ public class DialogLauncher {
                         //Add support for more map data layers here
                     }
                 })
-                .setPositiveButton("Close", new DialogInterface.OnClickListener() {
+                .setPositiveButton(activity.getString(R.string.close), new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface arg0, int arg1) {
                     }
                 })
@@ -81,7 +81,7 @@ public class DialogLauncher {
                 .setTitle(activity.getString(R.string.search))
                 .setIcon(android.R.drawable.ic_menu_search)
                 .setView(searchView)
-                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                .setNegativeButton(activity.getString(R.string.cancel), new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int whichButton) {
                         // Canceled. Do nothing
                     }
@@ -122,56 +122,9 @@ public class DialogLauncher {
                                                 bingMapsView.getLayerManager().addLayer(searchLayer);
                                                 searchLayer.updateLayer();
                                                 bingMapsView.setCenterAndZoom(l.Point, Constants.DefaultSearchZoomLevel);
-
-                                                //Search for nearby locations
-                                                BingSpatialDataService bsds = new BingSpatialDataService(
-                                                        Constants.BingSpatialAccessId,
-                                                        Constants.BingSpatialDataSourceName,
-                                                        Constants.BingSpatialEntityTypeName,
-                                                        Constants.BingSpatialQueryKey);
-
-                                                //Perform a nearby search for POI data
-                                                bsds.FindByAreaCompleted = new Handler() {
-                                                    public void handleMessage(Message msg) {
-                                                        if (msg.obj != null) {
-                                                            Record[] records = (Record[]) msg.obj;
-                                                            EntityLayer el = (EntityLayer) bingMapsView.getLayerManager().getLayerByName(Constants.DataLayers.Search);
-                                                            double maxLat = -90, minLat = 90, maxLon = -180, minLon = 180;
-
-                                                            for (Record r : records) {
-                                                                Pushpin p = new Pushpin(r.Location);
-                                                                p.Title = r.DisplayName;
-
-                                                                if (r.Location.Latitude > maxLat) {
-                                                                    maxLat = r.Location.Latitude;
-                                                                }
-                                                                if (r.Location.Longitude > maxLon) {
-                                                                    maxLon = r.Location.Longitude;
-                                                                }
-                                                                if (r.Location.Latitude < minLat) {
-                                                                    minLat = r.Location.Latitude;
-                                                                }
-                                                                if (r.Location.Longitude < minLon) {
-                                                                    minLon = r.Location.Longitude;
-                                                                }
-
-                                                                HashMap<String, Object> metadata = new HashMap<String, Object>();
-                                                                metadata.put("record", r);
-                                                                el.add(p, metadata);
-                                                            }
-
-                                                            bingMapsView.setMapView(new LocationRect(maxLat, maxLon, minLat, minLon));
-
-                                                            el.updateLayer();
-                                                        }
-
-                                                        Message v = new Message();
-                                                        v.arg1 = 0;
-                                                        loadingScreenHandler.sendMessage(v);
-                                                    }
-                                                };
-
-                                                bsds.FindByArea(l.Point, Constants.SearchRadiusKM, null);
+                                                Message v = new Message();
+                                                v.arg1 = 0;
+                                                loadingScreenHandler.sendMessage(v);
                                             } else {
                                                 Message v = new Message();
                                                 v.arg1 = 0;
@@ -204,12 +157,12 @@ public class DialogLauncher {
                 .setTitle(activity.getString(R.string.directions))
                 .setView(directionsView)
                 .setIcon(android.R.drawable.ic_menu_directions)
-                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                .setNegativeButton(activity.getString(R.string.cancel), new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int whichButton) {
                         // Canceled. Do nothing
                     }
                 })
-                .setPositiveButton("Get Directions", new DialogInterface.OnClickListener() {
+                .setPositiveButton(activity.getString(R.string.getDirections), new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int whichButton) {
                         final EditText fromInput = (EditText) directionsView.findViewById(R.id.directionsFromInput);
                         final EditText toInput = (EditText) directionsView.findViewById(R.id.directionsToInput);
@@ -303,7 +256,7 @@ public class DialogLauncher {
 
                 if (record.Address != null) {
                     TextView addressView = (TextView) detailsView.findViewById(R.id.detailsAddress);
-                    addressView.setText("Address: " + record.Address.toString());
+                    addressView.setText(activity.getString(R.string.address) + record.Address.toString());
                 }
 
                 if (!Utilities.isNullOrEmpty(record.Phone)) {
@@ -344,7 +297,7 @@ public class DialogLauncher {
                 AlertDialog.Builder detailsAlert = new AlertDialog.Builder(activity)
                         .setTitle(title)
                         .setView(detailsView)
-                        .setNegativeButton("Close", new DialogInterface.OnClickListener() {
+                        .setNegativeButton(activity.getString(R.string.close), new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int whichButton) {
                                 // Canceled. Do nothing
                             }
@@ -376,5 +329,57 @@ public class DialogLauncher {
                     }
                 });
         cultureAlert.show();
+    }
+
+    public static void DemoDataApi(final BingMapsView bingMapsView, final Handler loadingScreenHandler,org.bingmaps.rest.models.Location l){
+        //Search for nearby locations
+        BingSpatialDataService bsds = new BingSpatialDataService(
+                Constants.BingSpatialAccessId,
+                Constants.BingSpatialDataSourceName,
+                Constants.BingSpatialEntityTypeName,
+                Constants.BingSpatialQueryKey);
+
+        //Perform a nearby search for POI data
+        bsds.FindByAreaCompleted = new Handler() {
+            public void handleMessage(Message msg) {
+                if (msg.obj != null) {
+                    Record[] records = (Record[]) msg.obj;
+                    EntityLayer el = (EntityLayer) bingMapsView.getLayerManager().getLayerByName(Constants.DataLayers.Search);
+                    double maxLat = -90, minLat = 90, maxLon = -180, minLon = 180;
+
+                    for (Record r : records) {
+                        Pushpin p = new Pushpin(r.Location);
+                        p.Title = r.DisplayName;
+
+                        if (r.Location.Latitude > maxLat) {
+                            maxLat = r.Location.Latitude;
+                        }
+                        if (r.Location.Longitude > maxLon) {
+                            maxLon = r.Location.Longitude;
+                        }
+                        if (r.Location.Latitude < minLat) {
+                            minLat = r.Location.Latitude;
+                        }
+                        if (r.Location.Longitude < minLon) {
+                            minLon = r.Location.Longitude;
+                        }
+
+                        HashMap<String, Object> metadata = new HashMap<String, Object>();
+                        metadata.put("record", r);
+                        el.add(p, metadata);
+                    }
+
+                    bingMapsView.setMapView(new LocationRect(maxLat, maxLon, minLat, minLon));
+
+                    el.updateLayer();
+                }
+
+                Message v = new Message();
+                v.arg1 = 0;
+                loadingScreenHandler.sendMessage(v);
+            }
+        };
+
+        bsds.FindByArea(l.Point, Constants.SearchRadiusKM, null);
     }
 }

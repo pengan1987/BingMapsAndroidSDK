@@ -7,4 +7,57 @@
         android:id="@+id/mapView"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
+
+    <ImageButton
+        android:id="@+id/btnMyLocation"
+        android:layout_width="36dp"
+        android:padding="2dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:scaleType="fitXY"
+        android:background="@null"
+        android:layout_margin="16dp"
+        android:src="@drawable/ic_my_location_selector"
+        android:layout_height="36dp"
+        android:contentDescription="@string/myLocation" />
+
+    <LinearLayout
+        android:layout_width="36dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_margin="16dp"
+        android:orientation="vertical">
+
+        <ImageButton
+            android:id="@+id/btnZoomIn"
+            android:padding="2dp"
+            android:layout_width="match_parent"
+            android:layout_height="36dp"
+            android:scaleType="fitXY"
+            android:background="@null"
+            android:src="@drawable/ic_zoom_in_selector"
+            android:contentDescription="@string/zoomIn" />
+
+        <ImageButton
+            android:id="@+id/btnZoomOut"
+            android:layout_width="match_parent"
+            android:layout_height="36dp"
+            android:padding="2dp"
+            android:background="@null"
+            android:scaleType="fitXY"
+            android:src="@drawable/ic_zoom_out_selector"
+            android:contentDescription="@string/zoomOut" />
+
+        <ImageButton
+            android:layout_marginTop="8dp"
+            android:id="@+id/btnLayerOption"
+            android:padding="2dp"
+            android:layout_width="match_parent"
+            android:layout_height="36dp"
+            android:scaleType="fitXY"
+            android:background="@null"
+            android:src="@drawable/ic_layers_selector"
+            android:contentDescription="@string/layers" />
+    </LinearLayout>
 </RelativeLayout>

@@ -4,20 +4,20 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical"
-    android:paddingLeft="5dp"
-    android:paddingRight="5dp">
+    android:paddingLeft="8dp"
+    android:paddingRight="8dp">
 
     <TextView
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="Enter Culture String" />
+        android:text="@string/enterCountryCode" />
 
     <EditText
         android:id="@+id/cultureInput"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:hint="en-US"
+        android:hint="@string/sampleLang"
         android:inputType="text"
         android:maxLength="10"
-        android:singleLine="true" />
+        android:maxLines="1" />
 </LinearLayout>

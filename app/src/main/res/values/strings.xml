@@ -31,4 +31,13 @@
     <string name="ordnanceSurvey">Ordnance Survey(UK)</string>
     <string name="overrideCulture">Override Culture</string>
     <string name="ok">OK</string>
+    <string name="cancel">Cancel</string>
+    <string name="close">Close</string>
+    <string name="address">Address: </string>
+    <string name="getDirections">Get Directions</string>
+    <string name="from">From</string>
+    <string name="to">To</string>
+    <string name="enterAddress">Enter Address</string>
+    <string name="sampleLang">en_US</string>
+    <string name="enterCountryCode">Enter Country Code</string>
 </resources>
