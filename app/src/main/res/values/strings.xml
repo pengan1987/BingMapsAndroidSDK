@@ -42,4 +42,8 @@
     <string name="enterCountryCode">Enter Country Code</string>
     <string name="culture_mkt_param">Culture (mkt parameter)</string>
     <string name="change">Change</string>
+    <string name="canvasDark">Dark Canvas</string>
+    <string name="canvasLight">Light Canvas</string>
+    <string name="grayscale">Grayscale</string>
+    <string name="mercator">Mercator (Blank)</string>
 </resources>

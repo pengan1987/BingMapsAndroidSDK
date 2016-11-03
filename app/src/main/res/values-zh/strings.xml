@@ -42,4 +42,8 @@
     <string name="enterCountryCode">请输入国家代码</string>
     <string name="culture_mkt_param">覆盖国家设置（mkt参数）</string>
     <string name="change">更改</string>
+    <string name="canvasDark">深色画布</string>
+    <string name="canvasLight">浅色画布</string>
+    <string name="grayscale">灰度</string>
+    <string name="mercator">墨卡托投影（空白）</string>
 </resources>

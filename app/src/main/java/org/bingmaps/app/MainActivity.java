@@ -217,25 +217,39 @@ public class MainActivity extends AppCompatActivity {
         int selectedId = item.getItemId();
 
         // Map Mode menu items
-        if (selectedId == R.id.roadBtn) {
-            bingMapsView.setMapStyle(MapStyles.Road);
-            item.setChecked(!item.isChecked());
-            return true;
-        }
-        if (selectedId == R.id.aerialBtn) {
-            bingMapsView.setMapStyle(MapStyles.Aerial);
-            item.setChecked(!item.isChecked());
-            return true;
-        }
-        if (selectedId == R.id.streetSideBtn) {
-            bingMapsView.setMapStyle(MapStyles.StreetSide);
-            item.setChecked(!item.isChecked());
-            return true;
-        }
-        if (selectedId == R.id.ordnanceSurveyBtn) {
-            bingMapsView.setMapStyle(MapStyles.OrdnanceSurvey);
-            item.setChecked(!item.isChecked());
-            return true;
+        switch (selectedId) {
+            case R.id.roadBtn:
+                bingMapsView.setMapStyle(MapStyles.Road);
+                item.setChecked(!item.isChecked());
+                return true;
+            case R.id.aerialBtn:
+                bingMapsView.setMapStyle(MapStyles.Aerial);
+                item.setChecked(!item.isChecked());
+                return true;
+            case R.id.streetSideBtn:
+                bingMapsView.setMapStyle(MapStyles.StreetSide);
+                item.setChecked(!item.isChecked());
+                return true;
+            case R.id.ordnanceSurveyBtn:
+                bingMapsView.setMapStyle(MapStyles.OrdnanceSurvey);
+                item.setChecked(!item.isChecked());
+                return true;
+            case R.id.canvasDarkBtn:
+                bingMapsView.setMapStyle(MapStyles.CanvasDark);
+                item.setChecked(!item.isChecked());
+                return true;
+            case R.id.canvasLightBtn:
+                bingMapsView.setMapStyle(MapStyles.CanvasLight);
+                item.setChecked(!item.isChecked());
+                return true;
+            case R.id.grayscaleBtn:
+                bingMapsView.setMapStyle(MapStyles.Grayscale);
+                item.setChecked(!item.isChecked());
+                return true;
+            case R.id.mercatorBtn:
+                bingMapsView.setMapStyle(MapStyles.Mercator);
+                item.setChecked(!item.isChecked());
+                return true;
         }
         // More option items
         if (selectedId == R.id.aboutMenuBtn) {

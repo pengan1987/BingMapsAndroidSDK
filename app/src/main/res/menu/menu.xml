@@ -29,7 +29,18 @@
                 <item
                     android:id="@+id/streetSideBtn"
                     android:title="@string/streetSide" />
-
+                <item
+                    android:id="@+id/canvasDarkBtn"
+                    android:title="@string/canvasDark" />
+                <item
+                    android:id="@+id/canvasLightBtn"
+                    android:title="@string/canvasLight" />
+                <item
+                    android:id="@+id/grayscaleBtn"
+                    android:title="@string/grayscale" />
+                <item
+                    android:id="@+id/mercatorBtn"
+                    android:title="@string/mercator" />
                 <item
                     android:id="@+id/ordnanceSurveyBtn"
                     android:title="@string/ordnanceSurvey" />
